@@ -30,7 +30,7 @@ var Invoice = module.exports = mongoose.model('Invoice', invoiceSchema);
 
 //Get invoices
 module.exports.getInvoices = function(callback, limit){
-	Invoice.find(callback).limit(limit).sort([['createdAt', 'descending']]);
+	Invoice.find(callback).limit(limit).populate('customer').sort([['createdAt', 'descending']]);
 }
 
 //Get invoice
@@ -66,4 +66,10 @@ module.exports.updateInvoice = function(id, invoice, options, callback){
 module.exports.removeInvoice = function(id, callback){
 	var query = {_id: id};
 	Invoice.remove(query, callback);
+}
+
+// Get Customer Invoices
+module.exports.getCustomerInvoices = function(customer_id, callback, limit){
+	var query = {customer: customer_id};
+	Invoice.find(query, callback).limit(limit).populate('customer').sort([['createdAt', 'ascending']]);
 }

@@ -4,7 +4,7 @@ var router = express.Router();
 Customer = require('../models/customer.js');
 Invoice = require('../models/invoice.js');
 
-//Get all invoices
+// Get All Customers
 router.get('/', function(req, res){
 	Invoice.getInvoices(function(err, invoices){
 		if(err){
@@ -14,7 +14,7 @@ router.get('/', function(req, res){
 	});
 });
 
-//Get single invoice
+// Get Single Invoice
 router.get('/:id', function(req, res){
 	Invoice.getInvoiceById(req.params.id, function(err, invoice){
 		if(err){
@@ -57,5 +57,6 @@ router.delete('/:id', function(req, res){
 		res.json(invoice);
 	});
 });
+
 
 module.exports = router;
